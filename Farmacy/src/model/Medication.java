@@ -1,9 +1,10 @@
 package model;
 
-import ORM.MedicationORM;
+
+import model.BLL.MedicationServices;
+import model.conversion.ConvertorSale;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "medication")
@@ -11,22 +12,23 @@ public class Medication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name ="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name ="ingredients")
+
+    @Column(name = "ingredients")
     private String ingredients;
 
-    @Column(name ="manufacturer")
+    @Column(name = "manufacturer")
     private String manufacturer;
 
-    @Column(name ="quantity")
+    @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name ="price")
+    @Column(name = "price")
     private Double price;
 
 
@@ -99,12 +101,32 @@ public class Medication {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 
-    public static List<Medication> findbyName(String name) {
-        return MedicationORM.findByName(name);
+    public void sell(Integer quantity, String employee) {
 
+        if (this.quantity - quantity >= 0) {
+            this.quantity -= quantity;
+
+
+            ConvertorSale convertorSale = new ConvertorSale();
+            Sale s = new Sale(this.name, quantity, employee);
+            Register r;
+
+            r = convertorSale.convertFromXML();
+
+            r.addSell(s);
+            convertorSale.convertToXML(r);
+        }
+
+        update();
     }
+
+    private void update() {
+
+        MedicationServices.update(this);
+    }
+
 }

@@ -8,12 +8,12 @@ public class LoginView {
     private JFrame jframe;
     private JPanel jpanel;
     private JButton loginButton;
-    private JLabel usernameLabel,passwordL;
+    private JLabel usernameLabel, passwordL;
     private JTextField usernameTF;
     private JPasswordField passwordTF;
 
     public LoginView() {
-        this.jframe =  new JFrame();
+        this.jframe = new JFrame();
         this.jpanel = new JPanel();
         this.loginButton = new JButton("Log in");
         this.usernameLabel = new JLabel("Username:");
@@ -23,6 +23,7 @@ public class LoginView {
 
         init();
     }
+
     private void init() {
 
         jframe.setContentPane(jpanel);
@@ -32,19 +33,23 @@ public class LoginView {
         jpanel.add(passwordTF);
         jpanel.add(loginButton);
         jframe.setLocation(600, 200);
-        jframe.setSize(600, 600);
-        jframe.setDefaultCloseOperation(jframe.EXIT_ON_CLOSE);
+        jframe.setSize(800, 600);
+        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setVisible(true);
 
     }
 
-    public void addListener(ActionListener listener){
+    public void addListener(ActionListener listener) {
         loginButton.addActionListener(listener);
     }
 
-    public String[] getInfo(){
+    public String[] getInfo() {
 
-        return new String[] {usernameTF.getText(),passwordTF.getText()};
+        return new String[]{usernameTF.getText(), passwordTF.getText()};
+    }
+
+    public void dispose() {
+        jframe.dispose();
     }
 }
 

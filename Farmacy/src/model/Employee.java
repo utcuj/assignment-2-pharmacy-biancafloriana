@@ -1,11 +1,11 @@
 package model;
 
-import ORM.EmployeeORM;
+import model.BLL.EmployeeServices;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name= "employee")
+@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -14,7 +14,8 @@ public class Employee {
     @Column
     private String password;
 
-    public Employee(){}
+    public Employee() {
+    }
 
 
     public Employee(String username, String password) {
@@ -39,19 +40,19 @@ public class Employee {
     }
 
 
-    public String toString(){
+    public String toString() {
         return this.username;
     }
 
-    public boolean checkhAutentification(){
+    public boolean checkhAutentification() {
 
-        Employee e = EmployeeORM.findByUsername(this.username);
-        if(this.password.compareTo(e.getPassword()) == 0)
+        Employee e = EmployeeServices.findById(this.username);
+        if (this.password.compareTo(e.getPassword()) == 0)
             return true;
         return false;
     }
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
 
         return username.equals("admin");
     }

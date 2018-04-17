@@ -2,24 +2,28 @@ package model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
 
 @XmlRootElement
 public class Sale {
 
     private String medicationName;
     private Integer quantity;
-    private Date data;
+    private String employee;
 
-    public Sale(String medicationName, Integer quantity, Date data) {
+
+    public Sale() {
+    }
+
+    public Sale(String medicationName, Integer quantity, String employee) {
         this.medicationName = medicationName;
         this.quantity = quantity;
-        this.data = data;
+        this.employee = employee;
     }
 
     public String getMedicationName() {
         return medicationName;
     }
+
     @XmlElement
     public void setMedicationName(String medicationName) {
         this.medicationName = medicationName;
@@ -28,16 +32,18 @@ public class Sale {
     public Integer getQuantity() {
         return quantity;
     }
+
     @XmlElement
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public Date getData() {
-        return data;
+    public String getEmployee() {
+        return employee;
     }
+
     @XmlElement
-    public void setData(Date data) {
-        this.data = data;
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 }

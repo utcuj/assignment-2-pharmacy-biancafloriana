@@ -6,31 +6,27 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class EmployeeView {
+public class AdminMedicationView {
     private JFrame jframe;
     private JPanel jpanel;
     private JTable tableMedication;
     private DefaultTableModel modelMedication;
-    private JButton searchByNameB;
-    private JButton searchByManufacturerB;
-    private JButton searchByIngredientsB;
-    private JButton sellB;
-    private JTextField quantityT, searchT;
+    private JButton addButton;
+    private JButton deleteButton;
+    private JButton newRowButton;
+    private JButton csvReport;
+    private JButton pdfReport;
     private JScrollPane listMedication;
 
 
-    public EmployeeView() {
+    public AdminMedicationView() {
         jframe = new JFrame();
         jpanel = new JPanel();
-
-        searchByNameB = new JButton("Search by name");
-        searchByManufacturerB = new JButton("Search by manufacturer");
-        searchByIngredientsB = new JButton("Search by ingredients");
-        sellB = new JButton("Sell");
-
-        quantityT = new JTextField(10);
-        searchT = new JTextField(10);
-
+        addButton = new JButton("Add");
+        deleteButton = new JButton("Delete");
+        newRowButton = new JButton("New Row");
+        csvReport = new JButton("Report csv");
+        pdfReport = new JButton("Report pdf");
         tableMedication = new JTable();
         tableMedication.setRowHeight(20);
         listMedication = new JScrollPane(tableMedication);
@@ -43,12 +39,11 @@ public class EmployeeView {
 
         jpanel.add(listMedication);
         jframe.setContentPane(jpanel);
-        jpanel.add(searchT);
-        jpanel.add(searchByNameB);
-        jpanel.add(searchByManufacturerB);
-        jpanel.add(searchByIngredientsB);
-        jpanel.add(quantityT);
-        jpanel.add(sellB);
+        jpanel.add(addButton);
+        jpanel.add(deleteButton);
+        jpanel.add(newRowButton);
+        jpanel.add(csvReport);
+        jpanel.add(pdfReport);
         jframe.setLocation(600, 200);
         jframe.setSize(800, 600);
         jframe.setDefaultCloseOperation(jframe.EXIT_ON_CLOSE);
@@ -58,14 +53,12 @@ public class EmployeeView {
 
     private void initTable() {
         Vector<String> cols = new Vector();
-
         cols.add("id");
         cols.add("name");
         cols.add("ingredients");
         cols.add("manufacturer");
         cols.add("quantity");
         cols.add("price");
-
 
         modelMedication = new DefaultTableModel(null, cols) {
             public boolean isCellEditable(int row, int column) {
@@ -83,28 +76,33 @@ public class EmployeeView {
 
         for (int i = 0; i < colNumber; i++) {
             result[i] = tableMedication.getModel().getValueAt(id, i);
+
         }
         return result;
     }
 
-    public void addListenerSBN(ActionListener ButtonL) {
-        searchByNameB.addActionListener(ButtonL);
+    public void addListenerAddB(ActionListener ButtonL) {
+        addButton.addActionListener(ButtonL);
 
     }
 
-
-    public void addListenerSBM(ActionListener ButtonL) {
-        searchByManufacturerB.addActionListener(ButtonL);
-
-    }
-
-    public void addListenerSBI(ActionListener ButtonL) {
-        searchByIngredientsB.addActionListener(ButtonL);
+    public void addListenerDeleteB(ActionListener ButtonL) {
+        deleteButton.addActionListener(ButtonL);
 
     }
 
-    public void addListenerSell(ActionListener ButtonL) {
-        sellB.addActionListener(ButtonL);
+    public void addListenerCSVB(ActionListener ButtonL) {
+        csvReport.addActionListener(ButtonL);
+
+    }
+
+    public void addListenerPDFB(ActionListener ButtonL) {
+        pdfReport.addActionListener(ButtonL);
+
+    }
+
+    public void addListenerNewRB(ActionListener ButtonL) {
+        newRowButton.addActionListener(ButtonL);
 
     }
 
@@ -112,20 +110,22 @@ public class EmployeeView {
         System.out.println(s);
     }
 
-    public String getSearchText() {
-        initTable();
-        return searchT.getText();
-    }
-
-    public String getQuantity() {
-        return quantityT.getText();
+    public void updateRow(Vector medication) {
+        int id = tableMedication.getSelectedRow();
+        modelMedication.removeRow(id);
+        modelMedication.addRow(medication);
+        modelMedication.moveRow(tableMedication.getRowCount() - 1, tableMedication.getRowCount() - 1, id);
     }
 
     public void addMedication(Vector medicationV) {
         modelMedication.addRow(medicationV);
     }
 
-    public void updateQuantity(Integer quantity) {
-        modelMedication.setValueAt(quantity, tableMedication.getSelectedRow(), 4);
+    public void addNewRow() {
+        modelMedication.addRow(new Vector());
+    }
+
+    public void removeRow() {
+        modelMedication.removeRow(tableMedication.getSelectedRow());
     }
 }

@@ -1,4 +1,4 @@
-package ORM;
+package model.DAO;
 
 import model.Employee;
 import org.hibernate.Session;
@@ -8,9 +8,9 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class EmployeeORM {
+public class EmployeeDAO {
 
-    private static String create(Employee e) {
+    public String create(Employee e) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.save(e);
@@ -20,7 +20,7 @@ public class EmployeeORM {
         return e.getUsername();
     }
 
-    private static SessionFactory getSessionFactory() {
+    private SessionFactory getSessionFactory() {
         Configuration configuration = new Configuration().configure();
         configuration.addAnnotatedClass(Employee.class);
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
@@ -29,7 +29,7 @@ public class EmployeeORM {
                 .buildSessionFactory(builder.build());
     }
 
-    public static List<Employee> read() {
+    public List<Employee> read() {
         Session session = getSessionFactory().openSession();
         // @SuppressWarnings("unchecked")
         List<Employee> employee = session.createQuery("FROM Employee").list();
@@ -38,7 +38,7 @@ public class EmployeeORM {
         return employee;
     }
 
-    public static void update(Employee e) {
+    public void update(Employee e) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         Employee em = session.load(Employee.class, e.getUsername());
@@ -51,7 +51,7 @@ public class EmployeeORM {
 
     }
 
-    public static void delete(Integer id) {
+    public void delete(String id) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         Employee e = findByID(id);
@@ -62,14 +62,14 @@ public class EmployeeORM {
 
     }
 
-    public static Employee findByID(Integer id) {
+    public Employee findByID(String id) {
         Session session = getSessionFactory().openSession();
         Employee e = (Employee) session.load(Employee.class, id);
         session.close();
         return e;
     }
 
-    private static List<Employee> findBy(String query) {
+    private List<Employee> findBy(String query) {
         Session session = getSessionFactory().openSession();
         @SuppressWarnings("unchecked")
         List<Employee> employee = session.createQuery(query).list();
@@ -78,7 +78,7 @@ public class EmployeeORM {
         return employee;
     }
 
-    public static Employee findByUsername(String userName) {
+    public Employee findByUsername(String userName) {
 
         Session session = getSessionFactory().openSession();
         Employee e = (Employee) session.load(Employee.class, userName);
