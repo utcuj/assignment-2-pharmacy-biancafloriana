@@ -13,7 +13,7 @@ public class ConvertorSale {
         Register sales = null;
         try {
 
-            File file = new File("F:\\Facultate\\An III\\sem2\\PS\\assignment-2-pharmacy-biancafloriana\\register.xml");
+            File file = new File("F:\\Facultate\\An III\\sem2\\PS\\Assigment2\\assignment-2-pharmacy-biancafloriana\\register.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Register.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -32,7 +32,7 @@ public class ConvertorSale {
     public void convertToXML(Register sales) {
         try {
 
-            File file = new File("F:\\Facultate\\An III\\sem2\\PS\\assignment-2-pharmacy-biancafloriana\\register.xml");
+            File file = new File("F:\\Facultate\\An III\\sem2\\PS\\Assigment2\\assignment-2-pharmacy-biancafloriana\\register.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Register.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 

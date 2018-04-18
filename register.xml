@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<register>
+    <sale>
+        <employee>bianca</employee>
+        <medicationName>Antinevralgic</medicationName>
+        <quantity>2</quantity>
+    </sale>
+</register>

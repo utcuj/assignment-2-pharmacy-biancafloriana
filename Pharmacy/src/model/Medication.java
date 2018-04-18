@@ -120,13 +120,14 @@ public class Medication {
     }
 
     public void sell(Integer quantity, String employee) {
-
+        Sale s;
+        ConvertorSale convertorSale = new ConvertorSale();
         if (this.quantity - quantity >= 0) {
             this.quantity -= quantity;
 
 
-            ConvertorSale convertorSale = new ConvertorSale();
-            Sale s = new Sale(this.name, quantity, employee);
+
+            s = new Sale(this.name, quantity, employee);
             Register r;
 
             r = convertorSale.convertFromXML();
