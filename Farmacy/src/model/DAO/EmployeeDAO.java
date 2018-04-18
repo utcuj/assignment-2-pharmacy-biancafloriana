@@ -42,8 +42,14 @@ public class EmployeeDAO {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         Employee em = session.load(Employee.class, e.getUsername());
-        em.setUsername(e.getUsername());
-        em.setPassword(e.getPassword());
+        try {
+            em.setUsername(e.getUsername());
+            em.setPassword(e.getPassword());
+        } catch (Exception e1) {
+           // e1.printStackTrace();
+            System.out.println("Nu s-a putut face update!");
+        }
+
 
         session.getTransaction().commit();
         session.close();

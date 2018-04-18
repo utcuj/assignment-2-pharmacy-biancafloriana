@@ -46,11 +46,17 @@ public class MedicationDAO {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         Medication em = session.load(Medication.class, m.getId());
-        em.setName(m.getName());
-        em.setIngredients(m.getIngredients());
-        em.setManufacturer(m.getManufacturer());
-        em.setQuantity(m.getQuantity());
-        em.setPrice(m.getPrice());
+        try {
+            em.setName(m.getName());
+            em.setIngredients(m.getIngredients());
+            em.setManufacturer(m.getManufacturer());
+            em.setQuantity(m.getQuantity());
+            em.setPrice(m.getPrice());
+        } catch (Exception e) {
+           // e.printStackTrace();
+            System.out.println("Nu s-a putut face update!");
+        }
+
         session.getTransaction().commit();
         session.close();
         System.out.println("Successfully updated " + m.toString());

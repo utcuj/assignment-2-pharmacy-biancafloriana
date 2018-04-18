@@ -18,16 +18,20 @@ public class Employee {
     }
 
 
-    public Employee(String username, String password) {
+    public Employee(String username, String password) throws Exception {
+        Validation(username);
+        Validation(password);
         this.username = username;
         this.password = password;
+
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username) throws Exception {
+        Validation(username);
         this.username = username;
     }
 
@@ -35,8 +39,10 @@ public class Employee {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws Exception {
+        Validation(password);
         this.password = password;
+
     }
 
 
@@ -57,5 +63,12 @@ public class Employee {
         return username.equals("admin");
     }
 
+    private void Validation(String s) throws Exception {
 
+        String regex = "^[a-zA-Z0-9]+$";
+        if(!s.matches(regex)){
+            throw  new Exception();
+        }
+
+    }
 }

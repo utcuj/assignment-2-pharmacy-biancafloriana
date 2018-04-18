@@ -6,6 +6,7 @@ import model.conversion.ConvertorSale;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "medication")
 public class Medication {
@@ -44,7 +45,13 @@ public class Medication {
         this.price = price;
     }
 
-    public Medication(String name, String ingredients, String manufacturer, Integer quantity, Double price) {
+    public Medication(String name, String ingredients, String manufacturer, Integer quantity, Double price) throws Exception {
+       Validation(name);
+       Validation(ingredients);
+       Validation(manufacturer);
+       Validation(quantity);
+       Validation(price);
+
         this.name = name;
         this.ingredients = ingredients;
         this.manufacturer = manufacturer;
@@ -64,7 +71,8 @@ public class Medication {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws Exception {
+        Validation(name);
         this.name = name;
     }
 
@@ -72,7 +80,8 @@ public class Medication {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(String ingredients) throws Exception {
+        Validation(ingredients);
         this.ingredients = ingredients;
     }
 
@@ -80,7 +89,9 @@ public class Medication {
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
+    public void setManufacturer(String manufacturer) throws Exception {
+
+        Validation(manufacturer);
         this.manufacturer = manufacturer;
     }
 
@@ -88,7 +99,9 @@ public class Medication {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Integer quantity) throws Exception {
+
+        Validation(quantity);
         this.quantity = quantity;
     }
 
@@ -96,7 +109,8 @@ public class Medication {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Double price) throws Exception {
+        Validation(price);
         this.price = price;
     }
 
@@ -128,5 +142,27 @@ public class Medication {
 
         MedicationServices.update(this);
     }
+    private void Validation(String s) throws Exception {
 
+        String regex = "^[a-zA-Z]+$";
+        if(!s.matches(regex)) {
+            throw new Exception();
+        }
+
+    }
+
+    private void Validation(int i) throws Exception {
+
+        if(i<0) {
+            throw new Exception();
+        }
+
+    }
+    private void Validation(double i) throws Exception {
+
+        if(i<0.0) {
+            throw new Exception();
+        }
+
+    }
 }

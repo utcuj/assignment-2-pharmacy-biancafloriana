@@ -40,15 +40,15 @@ public class PDF implements Report {
             contentStream.newLine();
             for (Medication m : meds) {
 
-                contentStream.showText(m.getName() + indent + m.getIngredients() + m.getManufacturer());
-
+                contentStream.showText(m.getName() + indent + m.getIngredients() + indent+m.getManufacturer());
+                contentStream.newLine();
             }
 
 
             contentStream.endText();
             contentStream.close();
 
-            document.save("F:\\Facultate\\An III\\sem2\\PS\\assignment-2-pharmacy-biancafloriana\\Report.pdf");
+            document.save("F:\\Facultate\\An III\\sem2\\PS\\Assigment2\\assignment-2-pharmacy-biancafloriana\\Report.pdf");
             document.close();
         } catch (IOException e) {
             e.printStackTrace();

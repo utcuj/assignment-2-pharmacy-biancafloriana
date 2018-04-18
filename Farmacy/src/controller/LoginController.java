@@ -36,7 +36,7 @@ public class LoginController {
                 }
 
             } catch (Exception e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 System.out.println("Nu s-a putut efectua logarea!");
             }
         };
